@@ -6,6 +6,12 @@ metadata:
     app: nginx-app
 spec:
   replicas: 2
+  minReadySeconds: 10
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   selector:
     matchLabels:
       app: nginx-app
@@ -15,7 +21,7 @@ spec:
         app: nginx-app
     spec:
       containers:
-      - name: nginx-ctr
-        image: nginx:1.15.4
+      - name: httpd-ctr
+        image: httpd
         ports:
         - containerPort: 80
